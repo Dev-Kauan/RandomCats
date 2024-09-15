@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Cat Image</title>
+</head>
+<body>
+  <h1>Veja um Gato Aleatório!</h1>
+  
+  <button onclick="getRandomCat()">Clique para ver um gato</button>
+  <div id="cat-container"></div>
+
+  <script>
+    async function getRandomCat() {
+      const url = 'https://api.thecatapi.com/v1/images/search';
+      
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        // Pega o container onde a imagem será exibida
+        const catContainer = document.getElementById('cat-container');
+        
+        // Limpa qualquer imagem anterior
+        catContainer.innerHTML = '';
+        
+        // Cria o elemento de imagem
+        const img = document.createElement('img');
+        img.src = data[0].url;
+        img.alt = 'Gato aleatório';
+        img.style.width = '300px';  // Define a largura da imagem
+        img.style.marginTop = '20px';
+        
+        // Adiciona a imagem ao container
+        catContainer.appendChild(img);
+      } catch (error) {
+        console.error('Erro ao buscar a imagem de gato:', error);
+      }
+    }
+  </script>
+</body>
+</html>
